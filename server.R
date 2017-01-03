@@ -38,25 +38,46 @@ server <- function(input, output) {
       paste("Quantidade de Registros:", dim(dados)[1]),
       input$count,
       color = "orange",
-      icon = icon("empire"))
+      icon = icon("database"))
   })
   output$vbox2 <- renderValueBox({ 
     valueBox(
       paste("Quantidade Instituições: ",length(table(dados$instituicao))),
       input$count,
       color = "red",
-      icon = icon("bullseye")
+      icon = icon("university")
     )
   })
   output$piebox1 <- renderPlotly({
     plot_ly() %>% 
       add_pie(data = count(dados, language), labels = ~language, values = ~n,
-              name = "Idioma",domain = list(x = c(0,0.4), y = c(0.2,1))) %>%
-      add_pie(data = count(dados, acesso), labels = ~acesso, values = ~n,
-              name = "Acesso",domain = list(x = c(0.6, 1), y = c(0.2,1))) %>%
+              name = "Idioma"#,domain = list(x = c(0.25, 0.75), y = c(-.5, 0.8))
+              ) %>%
+      #add_pie(data = count(dados, acesso), labels = ~acesso, values = ~n,name = "Acesso",domain = list(x = c(0.6, 1), y = c(0.2,1))) %>%
+      #add_pie(data = count(dados, tipo), labels = ~tipo, values = ~n,name = "Tipo",domain = list(x = c(0.25, 0.75), y = c(-.5, 0.8))) %>%
+      layout(title = 'Distribuição por Idioma',showlegend = T,
+             xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+             yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
+  })
+  output$piebox2 <- renderPlotly({
+    plot_ly() %>% 
+      #add_pie(data = count(dados, language), labels = ~language, values = ~n,name = "Idioma"#,domain = list(x = c(0,0.4), y = c(0.2,1))      ) %>%
+      #add_pie(data = count(dados, acesso), labels = ~acesso, values = ~n,name = "Acesso"#,domain = list(x = c(0.6, 1), y = c(0.2,1))              ) %>%
       add_pie(data = count(dados, tipo), labels = ~tipo, values = ~n,
-              name = "Tipo",domain = list(x = c(0.25, 0.75), y = c(-.5, 0.8))) %>%
-      layout(title = 'Idioma, Tipo Pesquisa, Tipo Acesso,',showlegend = F,
+              name = "Tipo"#,domain = list(x = c(0.25, 0.75), y = c(-.5, 0.8))
+              ) %>%
+      layout(title = 'Distribuição por Tipo',showlegend = T,
+             xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+             yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
+  })
+  output$piebox3 <- renderPlotly({
+    plot_ly() %>% 
+      #add_pie(data = count(dados, language), labels = ~language, values = ~n,name = "Idioma"#,domain = list(x = c(0,0.4), y = c(0.2,1))      ) %>%
+      add_pie(data = count(dados, acesso), labels = ~acesso, values = ~n,
+              name = "Acesso"#,domain = list(x = c(0.25, 0.75), y = c(-.5, 0.8))
+              ) %>%
+      #add_pie(data = count(dados, tipo), labels = ~tipo, values = ~n,name = "Tipo",domain = list(x = c(0.25, 0.75), y = c(-.5, 0.8))) %>%
+      layout(title = 'Distribuição por Tipo Acesso',showlegend = T,
              xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
              yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
   })

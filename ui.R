@@ -23,7 +23,7 @@ sidebar <- dashboardSidebar(
     width = 250,
     sidebarMenu(
       #menuItem("Início", tabName = "inicio", icon = icon("dashboard")),
-      menuItem("Visão Geral", tabName = "visgeral", icon = icon("dashboard")),
+      menuItem("Visão Geral", tabName = "visgeral", icon = icon("pie-chart")),
       menuItem("Visualização", icon = icon("navicon"), tabName = "graphs", 
                menuSubItem("Visualização Geral BDTD", tabName = "geral", icon = icon("bar-chart")), 
                menuSubItem("Visualização Times Series BDTD", tabName = "times", icon = icon("line-chart")),
@@ -33,7 +33,8 @@ sidebar <- dashboardSidebar(
       br(),br(),hr(),
       
       # email sharing link
-      menuItem(HTML("Email: repoanalises@ibict.br<br/><br/>Telefone: +55 61 3217-6449/6460"), icon = icon("envelope-o"), text = "Feedback & Sugestões"
+      menuItem(HTML("Email: repoanalises@ibict.br<br/><br/>Telefone: +55 61 3217-6449/6460"), 
+               icon = icon("envelope-o"), text = "Feedback & Sugestões"
                #href = "mailto:?ow.raza@hotmail.com?subject=Feedback on VAS app")
                )
     )
@@ -82,18 +83,33 @@ body <- dashboardBody(
                        tags$img(src = "C_thin.png", width = "10px", height = "10px")))
       ), #fim tabItem INICIO
       tabItem(tabName = "visgeral",
-              br(),br(),br(),br(),br(),br(),br(),
-              column(
-                fluidRow(
-                  valueBoxOutput("vbox1", width = 8),
-                  valueBoxOutput("vbox2", width = 8)
-                ),br(),
-                width = 12,
-                float = "left"
+              br(),br(),br(),br(),
+              fluidRow(
+                column(
+                    valueBoxOutput("vbox1", width = 8),
+                    valueBoxOutput("vbox2", width = 8)
+                  ,
+                  width = 12,
+                  float = "left"
+                )
               ),
-              column(
-                plotlyOutput("piebox1", width= "auto"),
-                width = 12
+              br(),
+              fluidRow(
+                column(
+                  plotlyOutput("piebox1", width= "auto"),
+                  width = 6, float = "left"
+                ),
+                column(
+                  plotlyOutput("piebox2", width= "auto"),
+                  width = 6#, float = "right"
+                )
+              ),
+              br(),
+              fluidRow(
+                column(
+                  plotlyOutput("piebox3", width= "auto"),
+                  width = 12#, float = "right"
+                )
               )
       ), #fim tabItem VISGERAL
       tabItem(tabName = "geral",
