@@ -1,5 +1,5 @@
 # bdtdanalytics
-Repository of data analitysis for BDTD (Digital Library of Thesis and Dissertations) with Shiny in R
+Repository of data analysis for BDTD (Digital Library of Theses and Dissertations) with Shiny in R
 
 
 
